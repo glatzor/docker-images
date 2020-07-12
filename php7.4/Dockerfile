@@ -57,7 +57,7 @@ COPY files/php.ini /etc/php/${PHP_VERSION}/cli/conf.d/ZZ_dpool.ini
 
 # Install composer
 RUN \
-	curl -o /usr/local/bin/composer https://getcomposer.org/download/v${COMPOSER_VERSION}/composer.p && \
+	curl -o /usr/local/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar && \
 	chmod a+x /usr/local/bin/composer
 
 # Setup apache

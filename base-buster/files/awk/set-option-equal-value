@@ -1,0 +1,4 @@
+BEGIN { FS = OFS = "=" }
+$1 == option { $2 = value; found=1 }
+{print}
+END { if (!found) { print option "=" value } }

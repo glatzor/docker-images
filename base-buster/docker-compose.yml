@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  dev:
+    image: dtools/dev:base-buster
+    ports:
+      - "2222:22"
+    environment:
+      - "MSMTP_PASSWORD=Eiyich1ohche,gh6"

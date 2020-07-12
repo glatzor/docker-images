@@ -17,6 +17,9 @@ RUN \
 RUN apt-get update && apt-get install -q -y \
 	apache2 \
 	geoip-database \
+	ghostscript \
+	graphicsmagick \
+	imagemagick \
 	npm \
 	php-geoip \
 	php-pear \
@@ -37,7 +40,8 @@ RUN apt-get update && apt-get install -q -y \
 	php${PHP_VERSION}-xml \
 	php${PHP_VERSION}-xmlrpc \
 	php${PHP_VERSION}-xsl \
-	php${PHP_VERSION}-zip
+	php${PHP_VERSION}-zip \
+	poppler-util
 
 COPY files/supervisord-apache2.conf /etc/supervisor/conf.d/apache2.conf
 COPY files/supervisord-php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf

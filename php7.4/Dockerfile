@@ -41,7 +41,7 @@ RUN apt-get update && apt-get install -q -y \
 	php${PHP_VERSION}-xmlrpc \
 	php${PHP_VERSION}-xsl \
 	php${PHP_VERSION}-zip \
-	poppler-util
+	poppler-utils
 
 COPY files/supervisord-apache2.conf /etc/supervisor/conf.d/apache2.conf
 COPY files/supervisord-php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf

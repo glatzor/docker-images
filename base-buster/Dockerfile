@@ -20,9 +20,10 @@ RUN apt-get update && apt-get install -q -y \
 RUN debconf-set-selections /tmp/debconf-selections
 
 # Set timezone
-RUN rm /etc/localtime
-RUN ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-RUN echo Europe/Berlin > /etc/timezone
+RUN \
+	rm /etc/localtime && \
+	ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \
+	echo Europe/Berlin > /etc/timezone
 
 RUN echo docker.dpool.com > /etc/mailname
 
@@ -30,8 +31,9 @@ COPY files/motd /etc/motd
 COPY files/gitconfig /etc/gitconfig
 
 # Avoid unsecure memory warning by gnupg
-RUN mkdir /root/.gnupg
-RUN echo "no-secmem-warning" > /root/.gnupg/gpg.conf
+RUN \
+	mkdir /root/.gnupg && \
+	echo "no-secmem-warning" > /root/.gnupg/gpg.conf
 
 # Bash setup
 COPY files/bash.bashrc /etc/bash.bashrc
@@ -86,13 +88,15 @@ RUN mkdir /var/run/sshd
 
 # Cleanup downloaded files
 COPY files/cleanup.sh /usr/local/sbin/cleanup
-RUN chmod a+x /usr/local/sbin/cleanup
-RUN /usr/local/sbin/cleanup
+RUN \
+	chmod a+x /usr/local/sbin/cleanup && \
+	/usr/local/sbin/cleanup
 
 # Healthcheck
 COPY files/healthcheck.sh /usr/local/sbin/healthcheck
-RUN chmod a+x /usr/local/sbin/healthcheck
-RUN mkdir -p /usr/local/lib/healthcheck
+RUN \
+	chmod a+x /usr/local/sbin/healthcheck && \
+	mkdir -p /usr/local/lib/healthcheck
 COPY files/healthcheck-ssh.sh /usr/local/lib/healthcheck/ssh.sh
 HEALTHCHECK --interval=30s --timeout=10s --retries=1 CMD /usr/local/sbin/healthcheck
 

@@ -60,6 +60,7 @@ RUN apt-get update && apt-get install -q -y \
 	nano \
 	netcat \
 	procps \
+	rsync \
 	ssh \
 	supervisor \
 	tree \

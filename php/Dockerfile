@@ -2,7 +2,8 @@ FROM dtools/dev:base-buster
 
 LABEL maintainer="Sebastian Heinlein <sebastian.heinlein@dpool.com>"
 
-ENV PHP_VERSION 	"7.4"
+ARG PHP_VERSION
+ENV PHP_VERSION 	"${PHP_VERSION:-7.4}"
 ENV COMPOSER_VERSION 	"1.10.8"
 
 ENV DISABLE_MODULES 	"mpm_prefork"
@@ -45,6 +46,7 @@ RUN apt-get update && apt-get install -q -y \
 
 COPY files/supervisord-apache2.conf /etc/supervisor/conf.d/apache2.conf
 COPY files/supervisord-php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
+RUN sed -i -r "s/7\.4/${PHP_VERSION}/g" /etc/supervisor/conf.d/php-fpm.conf
 
 # TODO
 #COPY files/healthcheck-php-fpm.sh /usr/local/lib/healthcheck/php-fpm.sh

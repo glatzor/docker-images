@@ -50,6 +50,7 @@ RUN apt-get update && apt-get install -q -y \
 	curl \
 	git \
 	gnupg \
+	gosu \
 	less \
 	locales \
 	logrotate \
@@ -60,7 +61,6 @@ RUN apt-get update && apt-get install -q -y \
 	netcat \
 	procps \
 	ssh \
-	sudo \
 	supervisor \
 	tree \
 	wget

@@ -53,9 +53,14 @@ RUN sed -i -r "s/7\.4/${PHP_VERSION}/g" /etc/supervisor/conf.d/php-fpm.conf
 #COPY files/healthcheck-apache2.sh /usr/local/lib/healthcheck/apache2.sh
 
 # Setup php
+COPY files/healthcheck-php.sh /usr/local/lib/healthcheck/php.sh
 RUN \
 	mkdir -p /var/run/php && \
-	mkdir -p /usr/local/share/php
+	mkdir -p /usr/local/share/php && \
+	sed -i -r "s/7\.4/${PHP_VERSION}/g" /etc/supervisor/conf.d/php-fpm.conf && \
+	sed -i -r "s/7\.4/${PHP_VERSION}/g" /usr/local/lib/healthcheck/php.sh && \
+	chmod a+x /usr/local/lib/healthcheck/php.sh
+
 COPY files/opcache.php /usr/local/share/php
 COPY files/phpinfo.php /usr/local/share/php
 COPY files/php.ini /etc/php/${PHP_VERSION}/fpm/conf.d/ZZ_dpool.ini

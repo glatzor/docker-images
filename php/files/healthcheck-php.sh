@@ -1,4 +1,4 @@
 #!/bin/sh
 echo "Checking php..."
-curl http://localhost/phpinfo | grep -s "PHP Version 7.4."
+curl --silent http://localhost/phpinfo | grep --silent "PHP Version 7.4."
 exit $?

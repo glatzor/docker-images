@@ -7,6 +7,10 @@ ENV DEBIAN_FRONTEND noninteractive
 # Set random root password
 RUN P="$(dd if=/dev/random bs=1 count=8 2>/dev/null | base64)" ; echo $P && echo "root:$P" | chpasswd
 
+# Helper to cleanup downloaded files
+COPY files/apt-cleanup.sh /usr/local/sbin/apt-cleanup
+RUN chmod a+x /usr/local/sbin/apt-cleanup
+
 # Setup the package manager and import defaults
 COPY files/debconf-selections /tmp/debconf-selections
 COPY files/sources.list /etc/apt/sources.list
@@ -14,7 +18,7 @@ RUN apt-get update && apt-get install -q -y \
 	apt-transport-https \
 	apt-utils \
 	debconf-utils \
-	whiptail
+	whiptail && apt-cleanup
 
 # Load defaults
 RUN debconf-set-selections /tmp/debconf-selections
@@ -66,7 +70,7 @@ RUN apt-get update && apt-get install -q -y \
 	ssh \
 	supervisor \
 	tree \
-	wget
+	wget && apt-cleanup
 
 # Remove the machine id - this way it gets recreated for each container
 RUN rm -f /etc/machine-id /var/lib/dbus/machine-id
@@ -86,11 +90,6 @@ COPY files/msmtprc /etc/msmtprc
 COPY files/supervisord-ssh.conf /etc/supervisor/conf.d/ssh.conf
 RUN mkdir /var/run/sshd
 
-# Cleanup downloaded files
-COPY files/cleanup.sh /usr/local/sbin/cleanup
-RUN \
-	chmod a+x /usr/local/sbin/cleanup && \
-	/usr/local/sbin/cleanup
 
 # Healthcheck
 COPY files/healthcheck.sh /usr/local/sbin/healthcheck

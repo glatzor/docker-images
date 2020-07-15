@@ -1,0 +1,13 @@
+version: "3.6"
+
+services:
+  dev:
+    image: dtools/dev:php7.4
+    ports:
+      - "9091:80"
+    environment:
+      - "MSTMP_FROM=dt+mbbm@dpool.net"
+      - "MSTMP_PASSWORD=SECRET"
+      - "WWW_DATA_USERID=1000"
+    volumes:
+      - .:/var/www

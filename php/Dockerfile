@@ -48,12 +48,9 @@ COPY files/supervisord-apache2.conf /etc/supervisor/conf.d/apache2.conf
 COPY files/supervisord-php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
 RUN sed -i -r "s/7\.4/${PHP_VERSION}/g" /etc/supervisor/conf.d/php-fpm.conf
 
-# TODO
-#COPY files/healthcheck-php-fpm.sh /usr/local/lib/healthcheck/php-fpm.sh
-#COPY files/healthcheck-apache2.sh /usr/local/lib/healthcheck/apache2.sh
-
 # Setup php
 COPY files/healthcheck-php.sh /usr/local/lib/healthcheck/php.sh
+RUN sed -i -r "s/7\.4/${PHP_VERSION}/g" /usr/local/lib/healthcheck/php.sh
 RUN \
 	mkdir -p /var/run/php && \
 	mkdir -p /usr/local/share/php && \

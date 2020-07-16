@@ -11,7 +11,7 @@ rebuild:
 	docker build -t $(TARGET) --network host --no-cache .
 
 run:
-	docker run -p 53:53 -p 53:53/udp -it $(TARGET)
+	docker run -p 53:53 -p 53:53/udp --cap-add NET_ADMIN -it $(TARGET)
 
 push: build
 	docker push $(TARGET)

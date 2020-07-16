@@ -9,6 +9,7 @@ ENV COMPOSER_VERSION 	"1.10.8"
 ENV DISABLE_MODULES 	"mpm_prefork"
 ENV ENABLE_MODULES 	"alias autoindex expires headers http2 mpm_worker proxy proxy_fcgi rewrite ssl"
 ENV ENABLE_CONFS 	"dpool php$PHP_VERSION-fpm"
+ENV ENABLE_SITES 	"000-default default-ssl"
 
 # PHP backport
 RUN \
@@ -72,11 +73,13 @@ RUN \
 # Setup apache
 COPY files/apache2.conf /etc/apache2/conf-available/dpool.conf
 COPY files/default-site.conf /etc/apache2/sites-available/000-default.conf
+COPY files/default-ssl-site.conf /etc/apache2/sites-available/default-ssl.conf
 RUN \
 	mkdir -p /var/run/apache2 && \
 	for MOD in $DISABLE_MODULES; do a2dismod $MOD; done && \
 	for MOD in $ENABLE_MODULES; do a2enmod $MOD; done && \
-	for CONF in $ENABLE_CONFS; do a2enconf $CONF; done
+	for CONF in $ENABLE_CONFS; do a2enconf $CONF; done && \
+	for SITE in $ENABLE_SITES; do a2ensite $SITE; done
 
 copy files/docker-entrypoint-www-data.sh /usr/local/lib/docker-entrypoint/www-data.sh
 

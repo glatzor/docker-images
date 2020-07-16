@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -q -y \
 	ghostscript \
 	graphicsmagick \
 	imagemagick \
+	default-mysql-client \
 	npm \
 	php-geoip \
 	php-pear \

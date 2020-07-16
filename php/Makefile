@@ -4,7 +4,7 @@ PHP_VERSION ?= 7.4
 
 TARGET = dtools/dev:php$(PHP_VERSION)
 
-.PHONY: build rebuild run
+.PHONY: all build push rebuild run
 
 build:
 	docker build -t $(TARGET) --build-arg PHP_VERSION=$(PHP_VERSION) --network host .
@@ -17,3 +17,10 @@ run:
 
 push: build
 	docker push $(TARGET)
+
+all:
+	make push PHP_VERSION=7.0
+	make push PHP_VERSION=7.1
+	make push PHP_VERSION=7.2
+	make push PHP_VERSION=7.3
+	make push PHP_VERSION=7.4

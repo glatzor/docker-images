@@ -17,3 +17,6 @@ ENV HOME		/root
 
 # Cherry pick unreleased supervisord config to get logging to stdout
 COPY files/supervisor.daemon.conf /etc/supervisor.conf.d/supervisor.daemon.conf
+
+# Set the permissions of the mounted volume
+COPY files/entrypoint.sh /docker-entrypoint.d/fix-permissions.sh

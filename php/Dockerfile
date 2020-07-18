@@ -76,6 +76,7 @@ COPY files/default-site.conf /etc/apache2/sites-available/000-default.conf
 COPY files/default-ssl-site.conf /etc/apache2/sites-available/default-ssl.conf
 RUN \
 	mkdir -p /var/run/apache2 && \
+	chown -R www-data:www-data /var/www && \
 	for MOD in $DISABLE_MODULES; do a2dismod $MOD; done && \
 	for MOD in $ENABLE_MODULES; do a2enmod $MOD; done && \
 	for CONF in $ENABLE_CONFS; do a2enconf $CONF; done && \

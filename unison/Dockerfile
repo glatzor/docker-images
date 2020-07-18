@@ -14,3 +14,6 @@ ENV UNISON_WATCH_ARGS 	-repeat watch
 ENV TZ			Europe/Berlin
 ENV LANG		C.UTF-8
 ENV HOME		/root
+
+# Cherry pick unreleased supervisord config to get logging to stdout
+COPY files/supervisor.daemon.conf /etc/supervisor.conf.d/supervisor.daemon.conf

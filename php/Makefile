@@ -19,7 +19,6 @@ push: build
 	docker push $(TARGET)
 
 all:
-	make push PHP_VERSION=7.0
 	make push PHP_VERSION=7.1
 	make push PHP_VERSION=7.2
 	make push PHP_VERSION=7.3

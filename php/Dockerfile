@@ -65,6 +65,7 @@ COPY files/opcache.php /usr/local/share/php
 COPY files/phpinfo.php /usr/local/share/php
 COPY files/php.ini /etc/php/${PHP_VERSION}/fpm/conf.d/ZZ_dpool.ini
 COPY files/php.ini /etc/php/${PHP_VERSION}/cli/conf.d/ZZ_dpool.ini
+copy files/docker-entrypoint-xebug-on-macos.sh /usr/local/lib/docker-entrypoint/xdebug.sh
 
 # Install composer
 RUN \

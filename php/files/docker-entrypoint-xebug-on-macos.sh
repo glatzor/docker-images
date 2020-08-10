@@ -2,11 +2,9 @@
 # Native networking is not availabe using MacOS. So we have to adapt 
 # the xdebug configuration
 
-INI=<<EOF
-[xdebug]
+INI="[xdebug]
 xdebug.remote_connect_back=off
-xdebug.remote_host=host.docker.internal
-EOF
+xdebug.remote_host=host.docker.internal"
 
 # If the host system uses a linuxkit kernel we are likely running on docker tools
 if [[ $(uname --kernel-release) =~ ^[0-9]+\.[0-9]+\.[0-9]+-linuxkit$ ]]; then
